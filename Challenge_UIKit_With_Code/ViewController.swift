@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     private lazy var scrollView : UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .white
+        v.showsVerticalScrollIndicator = false
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -66,12 +67,119 @@ class ViewController: UIViewController {
         return v
     }()
     
-    private lazy var haracterLabel : UILabel = {
+    private lazy var characterLabel : UILabel = {
         let v = UILabel()
         v.text = "Черты характера"
-        v.text = "Борис"
-        v.font = .systemFont(ofSize: 24, weight: .regular)
+        v.font = .systemFont(ofSize: 18, weight: .regular)
         v.textColor = .brandMain
+            
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var trait1View : TraitView = {
+        let v = TraitView()
+        v.configure(progress: 7, label: "Удача")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var trait2View : TraitView = {
+        let v = TraitView()
+        v.configure(progress: 2, label: "Доброта")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var trait3View : TraitView = {
+        let v = TraitView()
+        v.configure(progress: 9, label: "Ум")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private var traitStack = UIStackView()
+    
+    private lazy var descriptionLabel : UILabel = {
+        let v = UILabel()
+        v.text = "Описание"
+        v.font = .systemFont(ofSize: 18, weight: .regular)
+        v.textColor = .brandMain
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var descriptionText : UILabel = {
+        let v = UILabel()
+        v.text = "Согласно проведенному анализу расположения звезд в день рождения вашего ребенка и благозвучных имен к отчеству Федорович, наиболее подходящим именем станет Борис. Если вы решите назвать своего малыша Борис, то данное имя одарит его не только врожденными талантами и острым умом, но и сильной волей."
+        v.textColor = .brandText
+        v.font = .systemFont(ofSize: 14, weight: .regular)
+        
+        v.numberOfLines = 0
+            
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var astrologyLabel : UILabel = {
+        let v = UILabel()
+        v.text = "Астрология"
+        v.font = .systemFont(ofSize: 18, weight: .regular)
+        v.textColor = .brandMain
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var astrologyText : UILabel = {
+        let v = UILabel()
+        v.text = "Благодаря исследованию ваших дат рождения и дня появления на свет вашего сына Овен, рожденный в год Серебряного Быка под именем Борис по-настоящему счастливый человек, ведь он способен воплотить в реальность даже самые невероятные свои идеи."
+        v.textColor = .brandText
+        v.font = .systemFont(ofSize: 14, weight: .regular)
+        v.numberOfLines = 0
+       
+            
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var nameMeaningLabel : UILabel = {
+        let v = UILabel()
+        v.text = "Значение имени"
+        v.font = .systemFont(ofSize: 18, weight: .regular)
+        v.textColor = .brandMain
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var nameMeaningText : UILabel = {
+        let v = UILabel()
+        v.text = "Борис с юного возраста проявляет любознательность и оптимизм в отношении жизненных трудностей – за него вам точно не придется переживать, потому что врожденный сильный характер не позволит ему сломаться ни перед какими трудностями."
+        v.textColor = .brandText
+        v.font = .systemFont(ofSize: 14, weight: .regular)
+        v.numberOfLines = 0
+        
+            
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var watermarkDuckImage : UIImageView = {
+        let v = UIImageView()
+        v.image = UIImage(named: "duck_watermark")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var watermarkStarImage : UIImageView = {
+        let v = UIImageView()
+        v.image = UIImage(named: "stars_watermark")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var watermarkTeddyImage : UIImageView = {
+        let v = UIImageView()
+        v.image = UIImage(named: "teddy_watermark")
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -83,10 +191,12 @@ class ViewController: UIViewController {
     }
     
     func setupView(){
-        view.addSubview(scrollView)
+        
         
         configureScrollView()
         configureHeader()
+        
+        view.addSubview(scrollView)
         
     }
     
@@ -107,6 +217,7 @@ class ViewController: UIViewController {
         headerLabel.text = "Борис"
         headerLabel.font = .systemFont(ofSize: 24, weight: .regular)
         headerLabel.textColor = .brandMain
+        traitStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [trait1View, trait2View, trait3View])
         
         scrollView.addSubview(heartImage)
         scrollView.addSubview(headerLabel)
@@ -114,6 +225,21 @@ class ViewController: UIViewController {
         scrollView.addSubview(curveImage)
         scrollView.addSubview(nameLabel)
         scrollView.addSubview(headerView)
+        scrollView.addSubview(characterLabel)
+        scrollView.addSubview(traitStack)
+        
+        scrollView.addSubview(watermarkDuckImage)
+        scrollView.addSubview(watermarkStarImage)
+        scrollView.addSubview(watermarkTeddyImage)
+        
+        scrollView.addSubview(descriptionLabel)
+        scrollView.addSubview(descriptionText)
+        
+        scrollView.addSubview(astrologyLabel)
+        scrollView.addSubview(astrologyText)
+        
+        scrollView.addSubview(nameMeaningLabel)
+        scrollView.addSubview(nameMeaningText)
     }
 }
 
@@ -121,11 +247,28 @@ extension ViewController {
     
     private func setConstrains() {
         
+        let frameGuide = scrollView.frameLayoutGuide
+        let contentGuide = scrollView.contentLayoutGuide
+        
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -28),
+            frameGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            frameGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            frameGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            frameGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            contentGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            contentGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            contentGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            contentGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 200 ),
+
+           // contentGuide.widthAnchor.constraint(equalTo: frameGuide.widthAnchor),
+
+            
+//            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 228),
+               
             
             headerLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
             headerLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
@@ -157,9 +300,82 @@ extension ViewController {
             headerView.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
             headerView.heightAnchor.constraint(equalToConstant: 160),
             
+            characterLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant:   48),
+            characterLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            
+            traitStack.topAnchor.constraint(equalTo: characterLabel.bottomAnchor, constant: 16),
+            traitStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            traitStack.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
+            trait1View.heightAnchor.constraint(equalToConstant: 57),
+            trait1View.widthAnchor.constraint(equalToConstant: 80),
+            trait2View.heightAnchor.constraint(equalToConstant: 57),
+            trait2View.widthAnchor.constraint(equalToConstant: 80),
+            trait3View.heightAnchor.constraint(equalToConstant: 57),
+            trait3View.widthAnchor.constraint(equalToConstant: 80),
+            
+            watermarkDuckImage.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 105.31),
+            watermarkDuckImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            watermarkDuckImage.heightAnchor.constraint(equalToConstant: 132),
+            watermarkDuckImage.widthAnchor.constraint(equalToConstant: 129.47),
+            
+            watermarkStarImage.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 300),
+            watermarkStarImage.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            watermarkStarImage.heightAnchor.constraint(equalToConstant: 168),
+            watermarkStarImage.widthAnchor.constraint(equalToConstant: 168),
+            
+            watermarkTeddyImage.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+            watermarkTeddyImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            watermarkTeddyImage.heightAnchor.constraint(equalToConstant: 168),
+            watermarkTeddyImage.widthAnchor.constraint(equalToConstant: 168),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: traitStack.bottomAnchor, constant: 36),
+            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            
+            descriptionText.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
+            descriptionText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            descriptionText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            descriptionText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
+            
+            astrologyLabel.topAnchor.constraint(equalTo: descriptionText.bottomAnchor, constant: 36),
+            astrologyLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            
+            astrologyText.topAnchor.constraint(equalTo: astrologyLabel.bottomAnchor, constant: 16),
+            astrologyText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            astrologyText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            astrologyText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
+            
+            nameMeaningLabel.topAnchor.constraint(equalTo: astrologyText.bottomAnchor, constant: 36),
+            nameMeaningLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            
+            nameMeaningText.topAnchor.constraint(equalTo: nameMeaningLabel.bottomAnchor, constant: 16),
+            nameMeaningText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            nameMeaningText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            nameMeaningText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
+            
+            
         ])
     }
 }
+
+extension UIScrollView {
+    func updateContentSize() {
+        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
+        
+        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
+    }
+    
+    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
+        var totalRect: CGRect = .zero
+        
+        for subView in view.subviews {
+            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
+        }
+                
+        return totalRect.union(view.frame)
+    }
+}
+
+
 
 
 #Preview {
