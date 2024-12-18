@@ -208,6 +208,7 @@ class ViewController: UIViewController {
     // MARK: - UI Configure
     
     func configureScrollView(){
+        //view.backgroundColor = .white
         view.layer.shadowColor = UIColor(named: K.brandColors.brandGradientBegin)?.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         view.layer.shadowOpacity = 1
@@ -215,16 +216,16 @@ class ViewController: UIViewController {
         
         traitStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [trait1View, trait2View, trait3View])
         
-        headStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [heartImage, headerLabel, closeImage])
+        headStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .fill, spacing: 0, subViews: [heartImage, headerLabel, closeImage])
         
         
         contentStack = UIStackView.init(axis: .vertical, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [headStack, curveImage, nameLabel, headerView, characterLabel, traitStack, descriptionLabel, descriptionText, astrologyLabel, astrologyText, nameMeaningLabel,nameMeaningText ])
         
-        
+        contentStack.setCustomSpacing(20, after: headStack)
         
         scrollView.layer.cornerRadius = 30.0
         scrollView.layer.masksToBounds = true
-        scrollView.backgroundColor = .none
+        scrollView.backgroundColor = .white
         contentStack.backgroundColor = .none
         
 //        scrollView.addSubview(heartImage)
@@ -259,18 +260,18 @@ extension ViewController {
     
     private func setConstrains() {
         
-        let frameGuide = scrollView.frameLayoutGuide
+        //let frameGuide = scrollView.frameLayoutGuide
         //let contentGuide = scrollView.contentLayoutGuide
         
         NSLayoutConstraint.activate([
 
-            frameGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            frameGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            frameGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            frameGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
-            contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 19),
+            contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0),
             contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
@@ -280,12 +281,12 @@ extension ViewController {
             contentGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 200 ),*/
             
             
-            
+            headStack.heightAnchor.constraint(equalToConstant: 25),
            // headerLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
             headerLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
            // heartImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            heartImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 22),
+//            heartImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 22),
             heartImage.heightAnchor.constraint(equalToConstant: 25),
             heartImage.widthAnchor.constraint(equalToConstant: 25),
             
@@ -306,7 +307,7 @@ extension ViewController {
             nameLabel.widthAnchor.constraint(equalToConstant: 280),
             
             //headerView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            headerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+//            headerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
             //headerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             headerView.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
             headerView.heightAnchor.constraint(equalToConstant: 160),
