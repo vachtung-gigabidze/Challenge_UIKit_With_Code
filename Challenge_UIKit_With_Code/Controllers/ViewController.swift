@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     private lazy var headerLabel : UILabel = {
         let v = UILabel()
-        v.text = "Борис"
+        v.text = boris.firstName
         v.font = .systemFont(ofSize: 24, weight: .regular)
         v.textColor = .brandMain
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     
     private lazy var nameLabel : UILabel = {
         let v = UILabel()
-        v.text = "Ковальчук Борис Федорович"
+        v.text = "\(boris.lastName) \(boris.firstName) \(boris.midleName)"
         v.font = .systemFont(ofSize: 18, weight: .regular)
         v.textColor = UIColor(named: K.brandColors.brandMain)
         v.textAlignment = .center
@@ -83,21 +83,21 @@ class ViewController: UIViewController {
     
     private lazy var trait1View : TraitView = {
         let v = TraitView()
-        v.configure(progress: 7, label: "Удача")
+        v.configure(progress: boris.luck, label: "Удача")
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
     private lazy var trait2View : TraitView = {
         let v = TraitView()
-        v.configure(progress: 2, label: "Доброта")
+        v.configure(progress: boris.kind, label: "Доброта")
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
     private lazy var trait3View : TraitView = {
         let v = TraitView()
-        v.configure(progress: 9, label: "Ум")
+        v.configure(progress: boris.wisdom, label: "Ум")
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
     
     private lazy var descriptionText : UILabel = {
         let v = UILabel()
-        v.text = "Согласно проведенному анализу расположения звезд в день рождения вашего ребенка и благозвучных имен к отчеству Федорович, наиболее подходящим именем станет Борис. Если вы решите назвать своего малыша Борис, то данное имя одарит его не только врожденными талантами и острым умом, но и сильной волей."
+        v.text = boris.description
         v.textColor = .brandText
         v.font = .systemFont(ofSize: 14, weight: .regular)
         
@@ -140,7 +140,7 @@ class ViewController: UIViewController {
     
     private lazy var astrologyText : UILabel = {
         let v = UILabel()
-        v.text = "Благодаря исследованию ваших дат рождения и дня появления на свет вашего сына Овен, рожденный в год Серебряного Быка под именем Борис по-настоящему счастливый человек, ведь он способен воплотить в реальность даже самые невероятные свои идеи."
+        v.text = boris.atrology
         v.textColor = .brandText
         v.font = .systemFont(ofSize: 14, weight: .regular)
         v.numberOfLines = 0
@@ -161,7 +161,7 @@ class ViewController: UIViewController {
     
     private lazy var nameMeaningText : UILabel = {
         let v = UILabel()
-        v.text = "Борис с юного возраста проявляет любознательность и оптимизм в отношении жизненных трудностей – за него вам точно не придется переживать, потому что врожденный сильный характер не позволит ему сломаться ни перед какими трудностями."
+        v.text = boris.nameMeaning
         v.textColor = .brandText
         v.font = .systemFont(ofSize: 14, weight: .regular)
         v.numberOfLines = 0
@@ -214,6 +214,7 @@ class ViewController: UIViewController {
         view.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 10
+        //view.layer.backgroundColor = .brandBackground
         
         traitStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [trait1View, trait2View, trait3View])
         
@@ -265,8 +266,8 @@ extension ViewController {
             contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
           
-            headerStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 22),
-            headerStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -22),
+            headerStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 22),
+            headerStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor,constant: -22),
             
           
             heartImage.heightAnchor.constraint(equalToConstant: 25),
@@ -274,18 +275,18 @@ extension ViewController {
             closeImage.heightAnchor.constraint(equalToConstant: 25),
             closeImage.widthAnchor.constraint(equalToConstant: 25),
 
-            curveImage.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            curveImage.centerXAnchor.constraint(equalTo: contentStack.centerXAnchor),
             curveImage.heightAnchor.constraint(equalToConstant: 5),
             curveImage.widthAnchor.constraint(equalToConstant: 86),
 
             nameLabel.heightAnchor.constraint(equalToConstant: 40),
             nameLabel.widthAnchor.constraint(equalToConstant: 280),
 
-            headerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
-            headerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -28),
+            headerView.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 28),
+            headerView.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -28),
             headerView.heightAnchor.constraint(equalToConstant: 160),
     
-            traitStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            traitStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 28),
             traitStack.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
             trait1View.heightAnchor.constraint(equalToConstant: 57),
             trait1View.widthAnchor.constraint(equalToConstant: 80),
@@ -309,23 +310,23 @@ extension ViewController {
             watermarkTeddyImage.heightAnchor.constraint(equalToConstant: 168),
             watermarkTeddyImage.widthAnchor.constraint(equalToConstant: 150),
 
-            descriptionText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            descriptionText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            descriptionText.centerXAnchor.constraint(equalTo: contentStack.centerXAnchor),
+            descriptionText.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 28),
             descriptionText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
 
-            astrologyText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            astrologyText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            astrologyText.centerXAnchor.constraint(equalTo: contentStack.centerXAnchor),
+            astrologyText.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 28),
             astrologyText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
 
-            nameMeaningText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            nameMeaningText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            nameMeaningText.centerXAnchor.constraint(equalTo: contentStack.centerXAnchor),
+            nameMeaningText.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 28),
             nameMeaningText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
         ])
     }
 }
 
-#Preview {
-    let vc = ViewController()
-    return vc
-}
+//#Preview {
+//    let vc = ViewController()
+//    return vc
+//}
 

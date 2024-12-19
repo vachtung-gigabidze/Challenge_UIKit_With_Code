@@ -12,11 +12,11 @@ class HeaderView: UIView {
     
     
     let textDict: [[String]] = [["Знак зодиака","Асцендент",
-                                "Скорпион","Дева"],
+                                 boris.zodiac,boris.ascendant],
                                 ["Стихия","Цвет",
-                                "Вода","Синий"],
+                                 boris.element,boris.color],
                                 ["Камень","Планета",
-                                "Синий опал","Меркурий"]]
+                                 boris.stone,boris.planet]]
     
     private lazy var columnStack : UIStackView = {
         let v = UIStackView()
@@ -67,9 +67,7 @@ class HeaderView: UIView {
     private func setupView(){
         addSubview(imageMain)
         configureColumnStack()
-      //  backgroundColor = UIColor(named: K.brandColors.progressSecond)
-       
-        
+     
         NSLayoutConstraint.activate([
             imageMain.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageMain.centerYAnchor.constraint(equalTo: centerYAnchor),
