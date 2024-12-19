@@ -50,12 +50,12 @@ class HeaderView: UIView {
                 columnStack.addArrangedSubview(UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: .zero, subViews: [
                     
                     UIStackView.init(axis: .vertical, distribution: .fill, alignment: .fill, spacing: 3, subViews: [
-                        UILabel.makeLabel(text: $0[0], font: .systemFont(ofSize: 12) , textColor: UIColor(named: K.brandColors.brandMain)!),
-                        UILabel.makeLabel(text: $0[2], font: .systemFont(ofSize: 12) , textColor: UIColor(named: K.brandColors.brandText)!)
+                        UILabel.makeLabel(text: $0[0], font: .systemFont(ofSize: 14) , textColor: UIColor(named: K.brandColors.brandMain)!),
+                        UILabel.makeLabel(text: $0[2], font: .systemFont(ofSize: 14) , textColor: UIColor(named: K.brandColors.brandText)!)
                     ]),
                     UIStackView.init(axis: .vertical, distribution: .fill, alignment: .trailing, spacing: 3, subViews: [
-                        UILabel.makeLabel(text: $0[1], font: .systemFont(ofSize: 12) , textColor: UIColor(named: K.brandColors.brandMain)!),
-                        UILabel.makeLabel(text: $0[3], font: .systemFont(ofSize: 12) , textColor: UIColor(named: K.brandColors.brandText)!)
+                        UILabel.makeLabel(text: $0[1], font: .systemFont(ofSize: 14) , textColor: UIColor(named: K.brandColors.brandMain)!),
+                        UILabel.makeLabel(text: $0[3], font: .systemFont(ofSize: 14) , textColor: UIColor(named: K.brandColors.brandText)!)
                     ])
 
                 ]))

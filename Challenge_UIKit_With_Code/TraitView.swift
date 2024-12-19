@@ -53,8 +53,8 @@ class TraitView : UIView {
         setupView()
     }
     
-    public func configure(progress : Float, label: String ){
-        progressView.progress = progress / 10
+    public func configure(progress : Int, label: String ){
+        progressView.progress = Float(progress) / 10
         labelView.text = label
         progressLabel.text = "\(progress) / 10"
     }

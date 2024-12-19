@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     private lazy var closeImage : UIImageView = {
         let v = UIImageView()
         v.image = UIImage(named: "close")
+        
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -56,9 +57,9 @@ class ViewController: UIViewController {
         v.textColor = UIColor(named: K.brandColors.brandMain)
         v.textAlignment = .center
         
-        v.layer.borderColor = UIColor(named: K.brandColors.brandMain)?.cgColor
-        v.layer.borderWidth = 1.0
-        v.layer.cornerRadius = 10.0
+        v.layer.borderColor = UIColor(named: K.brandColors.brandSecond)?.cgColor
+        v.layer.borderWidth = 2.0
+        v.layer.cornerRadius = 12.0
         v.layer.masksToBounds = true
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -101,7 +102,7 @@ class ViewController: UIViewController {
         return v
     }()
     
-    private var headStack = UIStackView()
+    private var headerStack = UIStackView()
     
     private var traitStack = UIStackView()
     
@@ -208,7 +209,7 @@ class ViewController: UIViewController {
     // MARK: - UI Configure
     
     func configureScrollView(){
-        //view.backgroundColor = .white
+
         view.layer.shadowColor = UIColor(named: K.brandColors.brandGradientBegin)?.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         view.layer.shadowOpacity = 1
@@ -216,52 +217,41 @@ class ViewController: UIViewController {
         
         traitStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [trait1View, trait2View, trait3View])
         
-        headStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .fill, spacing: 0, subViews: [heartImage, headerLabel, closeImage])
+        headerStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .fill, spacing: 0, subViews: [heartImage, headerLabel, closeImage])
         
+        contentStack = UIStackView.init(axis: .vertical, distribution: .fill, alignment: .center, spacing: 0, subViews: [headerStack, curveImage, nameLabel, headerView, characterLabel, traitStack, descriptionLabel, descriptionText, astrologyLabel, astrologyText, nameMeaningLabel,nameMeaningText ])
         
-        contentStack = UIStackView.init(axis: .vertical, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [headStack, curveImage, nameLabel, headerView, characterLabel, traitStack, descriptionLabel, descriptionText, astrologyLabel, astrologyText, nameMeaningLabel,nameMeaningText ])
-        
-        contentStack.setCustomSpacing(20, after: headStack)
+        contentStack.setCustomSpacing(7, after: headerStack)
+        contentStack.setCustomSpacing(14, after: curveImage)
+        contentStack.setCustomSpacing(37, after: nameLabel)
+        contentStack.setCustomSpacing(48, after: headerView)
+        contentStack.setCustomSpacing(16, after: characterLabel)
+        contentStack.setCustomSpacing(36, after: traitStack)
+        contentStack.setCustomSpacing(12, after: descriptionLabel)
+        contentStack.setCustomSpacing(36, after: descriptionText)
+        contentStack.setCustomSpacing(16, after: astrologyLabel)
+        contentStack.setCustomSpacing(36, after: astrologyText)
+        contentStack.setCustomSpacing(16, after: nameMeaningLabel)
+        contentStack.setCustomSpacing(36, after: nameMeaningText)
+        contentStack.backgroundColor = .none
         
         scrollView.layer.cornerRadius = 30.0
         scrollView.layer.masksToBounds = true
-        scrollView.backgroundColor = .white
-        contentStack.backgroundColor = .none
-        
-//        scrollView.addSubview(heartImage)
-//        scrollView.addSubview(headerLabel)
-//        scrollView.addSubview(closeImage)
-//        scrollView.addSubview(curveImage)
-//        scrollView.addSubview(nameLabel)
-//        scrollView.addSubview(headerView)
-//        scrollView.addSubview(characterLabel)
-//        scrollView.addSubview(traitStack)
-//        
-        view.addSubview(watermarkDuckImage)
-        view.addSubview(watermarkStarImage)
-        view.addSubview(watermarkTeddyImage)
-        
+        scrollView.backgroundColor = .brandBackground
+       
         scrollView.addSubview(contentStack)
-//
-//        scrollView.addSubview(descriptionLabel)
-//        scrollView.addSubview(descriptionText)
-//        
-//        scrollView.addSubview(astrologyLabel)
-//        scrollView.addSubview(astrologyText)
-//        
-//        scrollView.addSubview(nameMeaningLabel)
-//        scrollView.addSubview(nameMeaningText)
+        
+        scrollView.addSubview(watermarkDuckImage)
+        scrollView.addSubview(watermarkStarImage)
+        scrollView.addSubview(watermarkTeddyImage)
+
     }
-    
    
 }
 
 extension ViewController {
     
     private func setConstrains() {
-        
-        //let frameGuide = scrollView.frameLayoutGuide
-        //let contentGuide = scrollView.contentLayoutGuide
         
         NSLayoutConstraint.activate([
 
@@ -274,48 +264,27 @@ extension ViewController {
             contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0),
             contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-
-            /*contentGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            contentGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            contentGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            contentGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 200 ),*/
+          
+            headerStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 22),
+            headerStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -22),
             
-            
-            headStack.heightAnchor.constraint(equalToConstant: 25),
-           // headerLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            headerLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-           // heartImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-//            heartImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 22),
+          
             heartImage.heightAnchor.constraint(equalToConstant: 25),
             heartImage.widthAnchor.constraint(equalToConstant: 25),
-            
-           // closeImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            closeImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: view.bounds.width-56),
-            closeImage.heightAnchor.constraint(equalToConstant: 20),
-            closeImage.widthAnchor.constraint(equalToConstant: 20),
-            
-            //curveImage.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 7),
+            closeImage.heightAnchor.constraint(equalToConstant: 25),
+            closeImage.widthAnchor.constraint(equalToConstant: 25),
+
             curveImage.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             curveImage.heightAnchor.constraint(equalToConstant: 5),
             curveImage.widthAnchor.constraint(equalToConstant: 86),
-            
 
-            //nameLabel.topAnchor.constraint(equalTo: curveImage.bottomAnchor, constant: 10),
-            nameLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 40),
             nameLabel.widthAnchor.constraint(equalToConstant: 280),
-            
-            //headerView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-//            headerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
-            //headerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            headerView.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
+
+            headerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
+            headerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -28),
             headerView.heightAnchor.constraint(equalToConstant: 160),
-            
-            //characterLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant:   48),
-            characterLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            //traitStack.topAnchor.constraint(equalTo: characterLabel.bottomAnchor, constant: 16),
+    
             traitStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
             traitStack.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
             trait1View.heightAnchor.constraint(equalToConstant: 57),
@@ -325,60 +294,35 @@ extension ViewController {
             trait3View.heightAnchor.constraint(equalToConstant: 57),
             trait3View.widthAnchor.constraint(equalToConstant: 80),
             
-            watermarkDuckImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 605.31),
+            watermarkDuckImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 620.31),
             watermarkDuckImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             watermarkDuckImage.heightAnchor.constraint(equalToConstant: 132),
             watermarkDuckImage.widthAnchor.constraint(equalToConstant: 129.47),
             
-            watermarkStarImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 880),
+            watermarkStarImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 760),
             watermarkStarImage.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             watermarkStarImage.heightAnchor.constraint(equalToConstant: 168),
-            watermarkStarImage.widthAnchor.constraint(equalToConstant: 168),
+            watermarkStarImage.widthAnchor.constraint(equalToConstant: 150),
             
-            watermarkTeddyImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 1100),
+            watermarkTeddyImage.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 80),
             watermarkTeddyImage.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             watermarkTeddyImage.heightAnchor.constraint(equalToConstant: 168),
-            watermarkTeddyImage.widthAnchor.constraint(equalToConstant: 168),
-            
-            //descriptionLabel.topAnchor.constraint(equalTo: traitStack.bottomAnchor, constant: 36),
-            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-//            descriptionText.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
+            watermarkTeddyImage.widthAnchor.constraint(equalToConstant: 150),
+
             descriptionText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             descriptionText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
             descriptionText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
-            
-//            astrologyLabel.topAnchor.constraint(equalTo: descriptionText.bottomAnchor, constant: 36),
-            astrologyLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-//            astrologyText.topAnchor.constraint(equalTo: astrologyLabel.bottomAnchor, constant: 16),
+
             astrologyText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             astrologyText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
             astrologyText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
-            
-//            nameMeaningLabel.topAnchor.constraint(equalTo: astrologyText.bottomAnchor, constant: 36),
-            nameMeaningLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-//            nameMeaningText.topAnchor.constraint(equalTo: nameMeaningLabel.bottomAnchor, constant: 16),
+
             nameMeaningText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             nameMeaningText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 28),
             nameMeaningText.widthAnchor.constraint(equalToConstant: view.bounds.width - 78),
-            
-            
-            
-            
         ])
     }
 }
-
-extension UIScrollView {
-    func fitSizeOfContent() -> CGFloat {
-        let sumHeight = self.subviews.map({$0.frame.size.height}).reduce(0, {x, y in x + y})
-        return sumHeight
-    }
-}
-
-
 
 #Preview {
     let vc = ViewController()

@@ -16,9 +16,10 @@ class K {
             static let brandMain = "brandMain"
             static let brandSecond = "brandSecond"
             static let brandText = "brandText"
+            static let brandBackground = "brandBackground"
             
             static let progressMain = "progressMain"
-            static let progressSecond = "progressSecond"           
+            static let progressSecond = "progressSecond"
             
         }
 }
