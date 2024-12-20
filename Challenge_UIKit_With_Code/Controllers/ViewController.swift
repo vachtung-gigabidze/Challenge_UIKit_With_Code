@@ -10,11 +10,18 @@ import UIKit
 class ViewController: UIViewController {
 
     // MARK: - UI
+    
+    private lazy var backgroundView : UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 
     private lazy var headerLabel : UILabel = {
         let v = UILabel()
         v.text = boris.firstName
         v.font = .systemFont(ofSize: 24, weight: .regular)
+        v.numberOfLines = 0
         v.textColor = .brandMain
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -50,13 +57,13 @@ class ViewController: UIViewController {
         return v
     }()
     
-    private lazy var nameLabel : UILabel = {
-        let v = UILabel()
+    private lazy var nameLabel : PaddingLabel = {
+        let v = PaddingLabel(withInsets: 10, 10, 20, 20)
         v.text = "\(boris.lastName) \(boris.firstName) \(boris.midleName)"
         v.font = .systemFont(ofSize: 18, weight: .regular)
         v.textColor = UIColor(named: K.brandColors.brandMain)
+        v.numberOfLines = 0
         v.textAlignment = .center
-        
         v.layer.borderColor = UIColor(named: K.brandColors.brandSecond)?.cgColor
         v.layer.borderWidth = 2.0
         v.layer.cornerRadius = 12.0
@@ -199,22 +206,20 @@ class ViewController: UIViewController {
     }
     
     func setupView(){
-        
         configureScrollView()
-        
-        view.addSubview(scrollView)
-        
     }
     
     // MARK: - UI Configure
     
     func configureScrollView(){
 
-        view.layer.shadowColor = UIColor(named: K.brandColors.brandGradientBegin)?.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        view.layer.shadowOpacity = 1
-        view.layer.shadowRadius = 10
-        //view.layer.backgroundColor = .brandBackground
+        backgroundView.layer.shadowColor = UIColor(named: K.brandColors.brandGradientBegin)?.cgColor
+        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        backgroundView.layer.shadowOpacity = 1
+        backgroundView.layer.shadowRadius = 10
+        
+        view.backgroundColor = .brandBackground
+        view.addSubview(backgroundView)
         
         traitStack = UIStackView.init(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 0, subViews: [trait1View, trait2View, trait3View])
         
@@ -236,6 +241,8 @@ class ViewController: UIViewController {
         contentStack.setCustomSpacing(36, after: nameMeaningText)
         contentStack.backgroundColor = .none
         
+        backgroundView.addSubview(scrollView)
+        
         scrollView.layer.cornerRadius = 30.0
         scrollView.layer.masksToBounds = true
         scrollView.backgroundColor = .brandBackground
@@ -245,7 +252,6 @@ class ViewController: UIViewController {
         scrollView.addSubview(watermarkDuckImage)
         scrollView.addSubview(watermarkStarImage)
         scrollView.addSubview(watermarkTeddyImage)
-
     }
    
 }
@@ -255,11 +261,16 @@ extension ViewController {
     private func setConstrains() {
         
         NSLayoutConstraint.activate([
+            
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
 
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            scrollView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 10),
+            scrollView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -10),
+            scrollView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -20),
             
             contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 19),
             contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0),
@@ -268,7 +279,6 @@ extension ViewController {
           
             headerStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 22),
             headerStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor,constant: -22),
-            
           
             heartImage.heightAnchor.constraint(equalToConstant: 25),
             heartImage.widthAnchor.constraint(equalToConstant: 25),
@@ -278,9 +288,6 @@ extension ViewController {
             curveImage.centerXAnchor.constraint(equalTo: contentStack.centerXAnchor),
             curveImage.heightAnchor.constraint(equalToConstant: 5),
             curveImage.widthAnchor.constraint(equalToConstant: 86),
-
-            nameLabel.heightAnchor.constraint(equalToConstant: 40),
-            nameLabel.widthAnchor.constraint(equalToConstant: 280),
 
             headerView.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 28),
             headerView.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -28),
@@ -324,6 +331,8 @@ extension ViewController {
         ])
     }
 }
+
+
 
 //#Preview {
 //    let vc = ViewController()

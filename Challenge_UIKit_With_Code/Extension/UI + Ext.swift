@@ -30,13 +30,16 @@ extension UILabel {
         return label
     }
     
-    static func makeLabel(text: String = "", font: UIFont?, textColor: UIColor) -> UILabel {
+    static func makeLabel(text: String = "", font: UIFont?, textColor: UIColor, textAligment: NSTextAlignment) -> UILabel {
         let label = UILabel()
         label.text = text
         label.font = font
         label.textColor = textColor
+        label.numberOfLines = 0
+        label.textAlignment = textAligment
         label.lineBreakMode = .byTruncatingTail
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        //label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
 }
